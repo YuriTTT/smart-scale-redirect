@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Підключення розумних ваг Cybergear</title>
+  <title>Підключення розумних ваг Cybegear</title>
   <style>
     body { font-family: Arial, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; line-height: 1.5; }
     h1 { font-size: 28px; margin-bottom: 8px; }
@@ -12,37 +12,64 @@
     .btn { display: inline-block; padding: 12px 18px; border-radius: 10px; background: #111; color: #fff; text-decoration: none; font-weight: bold; }
     .links a { display: block; margin: 6px 0; }
     details { margin: 10px 0; }
+    .store-badges { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .store-badges a { display: inline-block; }
+    .store-badges img { height: 56px; width: auto; display: block; }
+    .hint { font-size: 12px; color: #666; margin-top: 8px; }
   </style>
 </head>
 <body>
 
-  <h1>Підключення розумних ваг Cybergear</h1>
-  <p>Ця сторінка допоможе швидко підключити ваги до телефону.</p>
+  <h1>Підключення розумних ваг Cybegear</h1>
 
   <div class="card">
-    <h2>Інструкція підключення</h2>
+    <h2>Інструкція</h2>
     <ol>
-      <li><b>Увімкніть Bluetooth</b> на телефоні</li>
-      <li><b>Встаньте на ваги</b>, щоб вони активувались</li>
-      <li><b>Відкрийте застосунок Cybergear</b></li>
-      <li>Натисніть <b>“Додати пристрій” → “Розумні ваги”</b></li>
-      <li>Підтвердіть підключення, якщо з’явиться запит</li>
+      <li>Вставте батарейки у ваги (якщо вони в комплекті, вони знаходяться під корпусом).</li>
+      <li>Поставте ваги на тверду рівну поверхню.</li>
+      <li>Зачекайте кілька секунд, поки ваги відкалібруються.</li>
+      <li>Станьте на ваги та зважтесь — на екрані з’явиться ваша вага.</li>
+      <li>Завантажте та встановіть застосунок FeelFit.</li>
+    </ol>
+
+    <p style="margin-top:12px;"><b>Після встановлення застосунку:</b></p>
+    <ol start="6">
+      <li>Увімкніть Bluetooth на телефоні.</li>
+      <li>Станьте поруч із вагами.</li>
+      <li>Відкрийте застосунок.</li>
+      <li>Вкажіть свій вік (та інші базові дані).</li>
     </ol>
   </div>
 
-  <a class="btn" href="#">Відкрити застосунок</a>
-
-  <div class="card links">
-    <h2>Завантажити застосунок</h2>
-    <a href="#">App Store (iPhone)</a>
-    <a href="#">Google Play (Android)</a>
-  </div>
+  <a id="openApp" class="btn" href="#">Відкрити застосунок / Store</a>
+  <div class="hint" id="autoHint" style="display:none;">Ми визначили ваш пристрій і відкриваємо відповідний Store.</div>
 
   <div class="card">
     <h2>Відео-інструкція</h2>
-    <p>Подивіться коротке відео з підключенням:</p>
-    <a href="#">YouTube: Як підключити ваги Cybergear</a>
+    <p>Подивіться коротке відео з підключенням застосунку:</p>
+    <a href="#" target="_blank" rel="noopener">YouTube: Як підключити ваги Cybegear</a>
   </div>
+
+  <div class="card" id="storeBlock">
+    <h2>Завантажити застосунок</h2>
+    <div class="store-badges" style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items:start;">
+      <div style="text-align:center;">
+        <div style="font-size:12px; color:#666; margin-bottom:6px;">Для iPhone</div>
+        <a id="appStoreLink" href="https://apps.apple.com/us/app/feelfit/id1216588019" target="_blank" rel="noopener">
+          <img src="assets/app-store-badge.png" alt="Available on the App Store" />
+        </a>
+      </div>
+
+      <div style="text-align:center;">
+        <div style="font-size:12px; color:#666; margin-bottom:6px;">Для Android</div>
+        <a id="playStoreLink" href="https://play.google.com/store/search?q=feelfit&c=apps&hl=ru" target="_blank" rel="noopener">
+          <img src="assets/google-play-badge.png" alt="Get it on Google Play" />
+        </a>
+      </div>
+    </div>
+    <div class="hint">Якщо автоматичний перехід не спрацював — натисніть потрібний Store вручну.</div>
+  </div>
+
 
   <div class="card">
     <h2>FAQ</h2>
@@ -54,12 +81,12 @@
 
     <details>
       <summary>Чи потрібно підключати ваги в налаштуваннях Bluetooth?</summary>
-      <p>Ні. Підключення робиться всередині застосунку Cybergear.</p>
+      <p>Ні. Підключення робиться всередині застосунку FeelFit.</p>
     </details>
 
     <details>
       <summary>Дані не синхронізуються</summary>
-      <p>Переконайтеся, що застосунок має доступ до Bluetooth і працює інтернет-з’єднання.</p>
+      <p>Переконайтесь, що застосунок має доступ до Bluetooth і працює інтернет-з’єднання.</p>
     </details>
 
   </div>
@@ -67,6 +94,39 @@
   <p style="font-size: 12px; color: #666;">
     Підтримка: support@cybergear.example
   </p>
+
+  <script>
+    (function () {
+      const APP_STORE = "https://apps.apple.com/us/app/feelfit/id1216588019";
+      const PLAY_STORE = "https://play.google.com/store/search?q=feelfit&c=apps&hl=ru";
+
+      const ua = navigator.userAgent || "";
+      const isIOS = /iPad|iPhone|iPod/i.test(ua);
+      const isAndroid = /Android/i.test(ua);
+
+      const openBtn = document.getElementById('openApp');
+      const autoHint = document.getElementById('autoHint');
+
+      // Default: no assumptions
+      openBtn.href = '#';
+
+      if (isIOS) {
+        openBtn.href = APP_STORE;
+        autoHint.style.display = 'block';
+        autoHint.textContent = 'Ми визначили iPhone/iPad і відкриваємо App Store.';
+      } else if (isAndroid) {
+        openBtn.href = PLAY_STORE;
+        autoHint.style.display = 'block';
+        autoHint.textContent = 'Ми визначили Android і відкриваємо Google Play.';
+      } else {
+        // Unknown device: keep both store buttons visible (already visible)
+        autoHint.style.display = 'none';
+      }
+
+      // No auto-redirect: user should read instructions first
+      // Button will point to the correct store if device is detected
+    })();
+  </script>
 
 </body>
 </html>
